@@ -21,8 +21,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @IBAction func addBtnAction(_ sender: Any) {
+//        表示画面
         let alertController = UIAlertController(title: "ToDo追加", message: "ToDoを入力してください。", preferredStyle: UIAlertController.Style.alert)
+//        アラート内にテキストフィールドを設定
         alertController.addTextField(configurationHandler: nil)
+        
+//        OKボタンの設定
         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (acrion: UIAlertAction) in
             // 追加：OKをタップした時の処理
             if let textField = alertController.textFields?.first {
@@ -30,9 +34,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: UITableView.RowAnimation.right)
             }
         }
+//        OKボタンを追加
         alertController.addAction(okAction)
-        let cancelButton = UIAlertAction(title: "CANCEL", style: UIAlertAction.Style.cancel, handler: nil)
+        
+//        キャンセルボタンの設定
+        let cancelButton = UIAlertAction(title: "CANCELLLL", style: UIAlertAction.Style.cancel, handler: nil)
+//        キャンセルボタンを追加
         alertController.addAction(cancelButton)
+        
+//        UIAlertControllerの起動
         present(alertController, animated: true, completion: nil)
     }
 
