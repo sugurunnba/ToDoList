@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertController.addTextField(configurationHandler: nil)
         
 //        OKボタンの設定
-        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (acrion: UIAlertAction) in
+        let okAction = UIAlertAction(title: "追加する", style: UIAlertAction.Style.default) { (acrion: UIAlertAction) in
             // 追加：OKをタップした時の処理
             if let textField = alertController.textFields?.first {
                 self.todoList.insert(textField.text!, at: 0)
@@ -38,7 +38,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertController.addAction(okAction)
         
 //        キャンセルボタンの設定
-        let cancelButton = UIAlertAction(title: "CANCELLLL", style: UIAlertAction.Style.cancel, handler: nil)
+        let cancelButton = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: nil)
 //        キャンセルボタンを追加
         alertController.addAction(cancelButton)
         
@@ -54,10 +54,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // ④追加：セルの中身を設定
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
-        let todoTitle = todoList[indexPath.row]
-        cell.textLabel?.text = todoTitle
+        cell.textLabel?.text = todoList[indexPath.row]
         return cell
     }
-
+    
+    // 追加：セルの削除機能
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        .deleteのみでも可
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+//            データ削除
+            todoList.remove(at: indexPath.row)
+//            それに対応するセルの削除
+            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
 }
 
